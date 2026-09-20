@@ -5,6 +5,9 @@ import math
 import time
 from dotenv import load_dotenv
 
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+from home_screen import map_coords
+
 load_dotenv()
 pygame.init()
 mixer = pygame.mixer
@@ -30,12 +33,6 @@ def play_sound(file_path):
         mixer.music.play()
     except pygame.error as e:
         print(f"Error playing sound {file_path}: {e}")
-
-# Define mapping for touch screen coordinates
-def map_coords(x, y):
-    mapped_x = (y / 1080) * 1920
-    mapped_y = 1080 - ((x / 1920) * 1080)
-    return int(mapped_x), int(mapped_y)
 
 def space_invaders(screen):
     # Load images

@@ -1,2 +1,8 @@
 pygame
 python-dotenv
+opencv-python
+numpy
+torch
+Pillow
+transformers
+RealtimeSTT

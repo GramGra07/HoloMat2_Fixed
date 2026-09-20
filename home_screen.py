@@ -18,7 +18,7 @@ SCREEN_SIZE = (SCREEN_WIDTH, SCREEN_HEIGHT)
 NAVY_BLUE = (20, 20, 40)
 LIGHT_BLUE = (173, 216, 230)
 HOME_TOGGLE_DELAY = 1.0  # Delay in seconds for home button toggle
-APP_SELECT_DELAY = 1.0  # Delay to prevent immediate app launch
+APP_SELECT_DELAY = .5  # Delay to prevent immediate app launch
 LOGO_DELAY = 1  # Delay in seconds before showing the logo
 
 def play_sound(file_path):
@@ -93,9 +93,7 @@ class AppCircle:
         return math.hypot(pos[0] - self.center[0], pos[1] - self.center[1]) <= self.radius
 
 def map_coords(x, y):
-    mapped_x = (y / 1080) * 1920
-    mapped_y = 1080 - ((x / 1920) * 1080)
-    return mapped_x, mapped_y
+    return x, y
 
 def create_circles():
     circles = []

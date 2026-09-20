@@ -6,6 +6,9 @@ import math
 from dotenv import load_dotenv
 import os
 
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+from home_screen import map_coords
+
 load_dotenv()
 # Initialize Pygame
 pygame.init()
@@ -19,11 +22,6 @@ LIGHT_BLUE = (173, 216, 230)
 WHITE = (255, 255, 255)
 NAVY_BLUE = (20, 20, 40)
 PIXEL_TO_MM = 0.4478  # Adjust this variable as needed
-
-def map_coords(x, y):
-    mapped_x = (y / 1080) * 1920
-    mapped_y = 1080 - ((x / 1920) * 1080)
-    return int(mapped_x), int(mapped_y)
 
 def distance(p1, p2):
     return math.sqrt((p1[0] - p2[0])**2 + (p1[1] - p2[1])**2)

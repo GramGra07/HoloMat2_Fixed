@@ -3,6 +3,9 @@ import sys
 from dotenv import load_dotenv
 import os
 
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+from home_screen import map_coords
+
 load_dotenv()
 
 # Initialize Pygame
@@ -21,11 +24,6 @@ LIGHT_BLUE = (173, 216, 230)
 
 # Define fonts
 BUTTON_FONT = pygame.font.Font(None, 40)
-
-def map_coords(x, y):
-    mapped_x = (y / 1080) * 1920
-    mapped_y = 1080 - ((x / 1920) * 1080)
-    return int(mapped_x), int(mapped_y)
 
 class ClickRing:
     def __init__(self, pos):
@@ -107,6 +105,8 @@ class Slider:
         return knob_rect.collidepoint(pos)
 
 def run(screen):
+    home_button_rect = pygame.Rect(30, 30, 150, 60)
+
     # Button setup
     button_spacing = 10
     button_width, button_height = 150, 50
@@ -134,6 +134,10 @@ def run(screen):
                 sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = map_coords(*event.pos)
+
+                if home_button_rect.collidepoint(x, y):
+                    running = False
+                    continue
                 
                 # Add a click ring at the clicked position
                 click_rings.append(ClickRing((x, y)))
@@ -165,6 +169,11 @@ def run(screen):
                         b.selected = False
 
         screen.fill(BLACK)
+
+        pygame.draw.rect(screen, BLACK, home_button_rect, border_radius=15)
+        pygame.draw.rect(screen, LIGHT_BLUE, home_button_rect, 2, border_radius=15)
+        home_text = BUTTON_FONT.render("Home", True, WHITE)
+        screen.blit(home_text, home_text.get_rect(center=home_button_rect.center))
 
         # Draw grid based on selected spacing
         draw_grid(screen, selected_spacing)
